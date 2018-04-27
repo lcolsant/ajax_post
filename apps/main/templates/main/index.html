@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <title>Ajax Post</title>
+    <script
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>My Posts</h1>
+    <!-- <button class="btn btn-primary" id="button_json">Fetch HttpResponse</button> -->
+    <div id="placeholder" style="margin-top:50px; border:1px solid silver; padding: 10px; width: 700px;">Placeholder for Ajax content</div>
+    <br>
+    <form action="/add_post" method="POST" id="add_note">
+        {% csrf_token %}
+        <label for="post">Add a note:</label>
+        <p><input type="textarea" name="post" placeholder="Enter text here..."></p>
+        <p><input type="submit" id="btn_text" value="Submit Post" class="btn btn-primary"></p>
+    </form>
+    <script>
+    // $('#button_json').click(function(){
+    //     console.log('button_json was clicked!')
+    //     $.ajax({
+    //         url:'/main/ajax_post',
+    //         success:function(serverResponse){
+    //             console.log('success, serverResponse:', serverResponse)
+    //             $('#placeholder').html(JSON.stringify(serverResponse))
+    //         }
+    //     })
+    // });
+    
+    $('#add_note').submit(function(e){
+        e.preventDefault()
+        console.log('Sending ajax request to', $(this).attr('action'))
+        console.log('Submitting the following data', $(this).serialize())
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'post',
+            data: $(this).serialize(),
+            success:function(serverResponse){
+                $('#placeholder').html(serverResponse)
+                console.log(serverResponse)
+            }
+        })
+    });
+
+    </script>
+    
+</body>
+</html>
