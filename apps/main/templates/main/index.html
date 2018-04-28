@@ -8,27 +8,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>My Posts</h1>
-    <!-- <button class="btn btn-primary" id="button_json">Fetch HttpResponse</button> -->
-    <div id="placeholder" style="margin-top:50px; border:1px solid silver; padding: 10px; width: 700px;">Placeholder for Ajax content</div>
+    <h1>My Ajax Posts</h1>
+    {% for post in posts %}
+    <div id="newPost" style="border:1px solid silver; margin-top:10px; padding: 10px">
+        <p>{{post.post}}--{{post.created_at}}</p>
+    </div>
+    {% endfor %}
     <br>
     <form action="/add_post" method="POST" id="add_note">
         {% csrf_token %}
-        <label for="post">Add a note:</label>
-        <p><input type="textarea" name="post" placeholder="Enter text here..."></p>
-        <p><input type="submit" id="btn_text" value="Submit Post" class="btn btn-primary"></p>
+        <label for="post" style="margin-left:10px">Add a post:</label>
+        <p><input type="textarea" name="post" placeholder="Enter text here..." style="margin-left:10px";></p>
+        <p><input type="submit" id="btn_text" value="Submit Post" class="btn btn-primary" style="margin-left:10px"></p>
     </form>
     <script>
-    // $('#button_json').click(function(){
-    //     console.log('button_json was clicked!')
-    //     $.ajax({
-    //         url:'/main/ajax_post',
-    //         success:function(serverResponse){
-    //             console.log('success, serverResponse:', serverResponse)
-    //             $('#placeholder').html(JSON.stringify(serverResponse))
-    //         }
-    //     })
-    // });
     
     $('#add_note').submit(function(e){
         e.preventDefault()
@@ -39,7 +32,7 @@
             method: 'post',
             data: $(this).serialize(),
             success:function(serverResponse){
-                $('#placeholder').html(serverResponse)
+                $('#newPost').html(serverResponse)
                 console.log(serverResponse)
             }
         })
