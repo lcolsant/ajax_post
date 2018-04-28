@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
 
 def index(request):
@@ -20,3 +20,7 @@ def add_post(request):
     }
     return render(request,'main/newPost.html',context)
 
+def delete(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+    return redirect('/')

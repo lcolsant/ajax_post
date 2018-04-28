@@ -11,7 +11,7 @@
     <h1>My Ajax Posts</h1>
     {% for post in posts %}
     <div id="newPost" style="border:1px solid silver; margin-top:10px; padding: 10px">
-        <p>{{post.post}}--{{post.created_at}}</p>
+        <p>{{post.post}}--{{post.created_at}} <a href="/delete/{{post.id}}">delete</a></p>
     </div>
     {% endfor %}
     <br>
