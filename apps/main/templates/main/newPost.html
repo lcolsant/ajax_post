@@ -3,8 +3,8 @@
     <title>NewPost</title>
 </head>
 <body>
-    <div id="newPost">
-        <p>{{posts.post}}--{{posts.created_at}}</p>
+    <div style="border:1px solid silver; margin-top:10px; padding: 10px">
+        <p>{{posts.post}}--{{posts.created_at}} <a href="/delete/{{post.id}}" onclick="delete_func(event,'{{post.id}}');">delete</a></p>
     </div>
 </body>
 </html>

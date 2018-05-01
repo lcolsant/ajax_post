@@ -11,6 +11,15 @@ def index(request):
     }
     return render(request, 'main/index.html',context)
 
+# def add_post(request):
+#     newpost = request.POST['post']
+#     Post.objects.create(post=newpost)
+#     posts = Post.objects.last()
+#     context = {
+#         'posts':posts
+#     }
+#     return render(request,'main/newPost.html',context)
+
 def add_post(request):
     newpost = request.POST['post']
     Post.objects.create(post=newpost)
@@ -21,6 +30,8 @@ def add_post(request):
     return render(request,'main/newPost.html',context)
 
 def delete(request, id):
+    print 'id: ',id
+    print 'got here'
     post = Post.objects.get(id=id)
     post.delete()
     return redirect('/')

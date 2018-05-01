@@ -9,11 +9,18 @@
 </head>
 <body>
     <h1>My Ajax Posts</h1>
+    {% if posts %}
     {% for post in posts %}
-    <div id="newPost" style="border:1px solid silver; margin-top:10px; padding: 10px">
-        <p>{{post.post}}--{{post.created_at}} <a href="/delete/{{post.id}}">delete</a></p>
+    <div id="allPosts" style="border:1px solid silver; margin-top:10px; padding: 10px">
+        <p>{{post.post}}--{{post.created_at}} <a href="/delete/{{post.id}}" onclick="delete_func(event,'{{post.id}}');">delete</a></p>
+        {%comment%}
+        <!-- <p>{{post.post}}--{{post.created_at}} <a href="#" id="delete" >delete</a></p> -->
+        {%endcomment%}
     </div>
     {% endfor %}
+    {% endif %}
+    <div id="newPost" >
+    </div>
     <br>
     <form action="/add_post" method="POST" id="add_note">
         {% csrf_token %}
@@ -32,11 +39,47 @@
             method: 'post',
             data: $(this).serialize(),
             success:function(serverResponse){
-                $('#newPost').html(serverResponse)
+                $('#newPost').append(serverResponse)
                 console.log(serverResponse)
             }
         })
+        //$('#add_note').children('post').val('')
+        $('#add_note')[0].reset()
     });
+
+    function delete_func(e,id){
+        e.preventDefault();
+        console.log('got to delete func');
+        $.ajax({
+            url: '/delete/'+id,
+            method: 'get',
+            data: id,
+            success:function(serverResponse){
+                $('#allPosts').empty()
+                $('#newPost').empty()
+                $('#allPosts').empty(serverResponse)
+                console.log(serverResponse)
+            }
+        })
+        
+    }
+
+    // $('#delete').click(function(e,id){
+    //     e.preventDefault();
+    //     console.log('got to delete func');
+    //     $.ajax({
+    //         url: '/delete/'+id,
+    //         method: 'get',
+    //         data: id,
+    //         success:function(serverResponse){
+    //             $('#allPosts').empty()
+    //             $('#newPost').empty()
+    //             $('#allPosts').empty(serverResponse)
+    //             console.log(serverResponse)
+    //         }
+    //     })
+        
+    // });
 
     </script>
     
