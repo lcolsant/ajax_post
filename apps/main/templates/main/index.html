@@ -12,9 +12,9 @@
     {% if posts %}
     {% for post in posts %}
     <div id="allPosts" style="border:1px solid silver; margin-top:10px; padding: 10px">
-        <p>{{post.post}}--{{post.created_at}} <a href="/delete/{{post.id}}" onclick="delete_func(event,'{{post.id}}');">delete</a></p>
+        <p>{{post.post}}--{{post.created_at}} <a href="#" class="delete" id="{{post.id}}" >delete</a></p>
         {%comment%}
-        <!-- <p>{{post.post}}--{{post.created_at}} <a href="#" id="delete" >delete</a></p> -->
+        <!-- <p>{{post.post}}--{{post.created_at}} <a href="/delete/{{post.id}}" onclick="delete_func(event,'{{post.id}}');">delete</a></p> -->
         {%endcomment%}
     </div>
     {% endfor %}
@@ -47,13 +47,16 @@
         $('#add_note')[0].reset()
     });
 
-    function delete_func(e,id){
+
+
+    $('.delete').click(function(e){
         e.preventDefault();
         console.log('got to delete func');
+        console.log( $(this).attr("id") );
         $.ajax({
-            url: '/delete/'+id,
+            url: '/delete/'+$(this).attr("id"),
             method: 'get',
-            data: id,
+            data: $(this).attr("id"),
             success:function(serverResponse){
                 $('#allPosts').empty()
                 $('#newPost').empty()
@@ -62,9 +65,10 @@
             }
         })
         
-    }
+    });
 
-    // $('#delete').click(function(e,id){
+    //Another way to accomplish the delete function
+    // function delete_func(e,id){
     //     e.preventDefault();
     //     console.log('got to delete func');
     //     $.ajax({
@@ -79,7 +83,7 @@
     //         }
     //     })
         
-    // });
+    // }
 
     </script>
     
