@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <title>GetPosts</title>
+</head>
+<body>
+    {% if posts %}
+    {% for post in posts %}
+    <!-- <div id="allPosts" style="border:1px solid silver; margin-top:10px; padding: 10px"> -->
+    <div id="allPosts">
+        <form action="/edit_post" method="POST" id="edit_note">
+            {% csrf_token %}
+        <p><input type="textarea" value="{{post.post}}--{{post.created_at}}" style="margin-left:10px; height:100px; width:500px;"> <a href="#" class="delete" id="{{post.id}}" >delete</a></p>
+        </form>
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
