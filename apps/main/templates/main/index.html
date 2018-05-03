@@ -11,15 +11,11 @@
     <h1>My Ajax Posts</h1>
     {% if posts %}
     {% for post in posts %}
-    <!-- <div id="allPosts" style="border:1px solid silver; margin-top:10px; padding: 10px"> -->
     <div id="allPosts">
         <form action="/edit_post" method="POST" id="edit_note">
             {% csrf_token %}
             <p><input type="textarea" value="{{post.post}}--{{post.created_at}}" style="margin-left:10px; height:100px; width:500px;"> <a href="#" class="delete" id="{{post.id}}" >delete</a></p>
         </form>
-        {%comment%}
-    <!-- <p><input type="textarea" value="{{post.post}}--{{post.created_at}} " name="editpost" style="margin-left:10px;height:100px; width:500px;"> <a href="/delete/{{post.id}}" onclick="delete_func(event,'{{post.id}}');">delete</a></p> -->
-        {%endcomment%}
     </div>
     {% endfor %}
     {% endif %}
@@ -46,30 +42,13 @@
                     console.log(serverResponse)
                 }
             })
-            //$('#add_note').children('post').val('')
-            $('#add_note')[0].reset()
+            
+            $("input[name='post']").val('')
+            //$('#add_note')[0].reset()
         });
 
 
-        // $('.delete').on('click',function(e){
-        //     e.preventDefault();
-        //     console.log('got to delete func');
-        //     console.log( $(this).attr("id") );
-        //     $.ajax({
-        //         url: '/delete/'+$(this).attr("id"),
-        //         method: 'get',
-        //         data: $(this).attr("id"),
-        //         success:function(serverResponse){
-        //             console.log('ready to clear divs')
-        //             $('#allPosts').empty()
-        //             $('#allPosts').html(serverResponse)
-        //             console.log(serverResponse)
-        //         }
-        //     })
-
-        // });
-
-        $('.delete').click(function(e){
+        $(document.body).on('click', '.delete' ,function(e){
             e.preventDefault();
             console.log('got to delete func');
             console.log( $(this).attr("id") );
@@ -84,25 +63,9 @@
                     console.log(serverResponse)
                 }
             })
-            
+
         });
 
-    //Another way to accomplish the delete function
-    // function delete_func(e,id){
-    //     e.preventDefault();
-    //     console.log('got to delete func');
-    //     $.ajax({
-    //         url: '/delete/'+id,
-    //         method: 'get',
-    //         data: id,
-    //         success:function(serverResponse){
-    //             $('#allPosts').empty()
-    //             $('#allPosts').html(serverResponse)
-    //             console.log(serverResponse)
-    //         }
-    //     })
-        
-    // }
 
     </script>
     

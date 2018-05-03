@@ -7,9 +7,6 @@
         <form action="/edit_post" method="POST" id="edit_note">
             {% csrf_token %}
             <p><input type="textarea" value="{{posts.post}}--{{posts.created_at}}" name="editpost" style="height:100px; width:500px; "> <a href="#" class="delete" id="{{posts.id}}" >delete</a></p>
-            {%comment%}
-            <!-- <p><input type="textarea" value="{{posts.post}}--{{posts.created_at}} " name="editpost" style="height:100px; width:500px;"> <a href="/delete/{{posts.id}}" onclick="delete_func(event,'{{posts.id}}');">delete</a></p> -->
-            {%endcomment%}
         </form>
     </div>
 </body>
@@ -19,10 +16,3 @@
 
 
 
-
-
-{%comment%}
-<!-- <div style="border:1px solid silver; margin-top:10px; padding: 10px">
-    <p>{{posts.post}}--{{posts.created_at}} <a href="#" class="delete" id="{{posts.id}}" >delete</a></p>
-</div> -->
-{%endcomment%}
